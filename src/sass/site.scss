@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@import "../../node_modules/modern-normalize/modern-normalize";
+
+p,
+h3 {
+    color: lime;
+
+    div {
+        display: inline;
+    }
+}
