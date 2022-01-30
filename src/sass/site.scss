@@ -1,12 +1,92 @@
 @charset "utf-8";
 
 @import "../../node_modules/modern-normalize/modern-normalize";
+$color-initial: #fff !default;
+$color-primary: #18a3ad !default;
+$color-secondary: #606c76 !default;
+$color-tertiary: #f4f5f6 !default;
+$color-quaternary: #d1d1d1 !default;
+$color-quinary: #e1e1e1 !default;
+@import "../../node_modules/milligram/src/milligram.sass";
 
-p,
-h3 {
-    color: lime;
+html {
+    background-color: darkslateblue;
+}
 
-    div {
-        display: inline;
+.container {
+
+    max-width: 1344px;
+
+    h1 {
+        color: goldenrod;
+        text-align: center;
+        margin-top: 2rem;
     }
+}
+
+div.slot {
+    background-color: hotpink;
+    border: solid 2px darkviolet;
+    border-radius: 1rem;
+    padding: 1rem;
+    min-height: 300px;
+
+    &.flex {
+        display: flex;
+
+    }
+
+    .loading {
+        margin: auto;
+        width: 69px;
+        height: 30px;
+        --c: radial-gradient(farthest-side, currentColor 90%, #0000);
+        background: var(--c), var(--c), var(--c), var(--c);
+        background-size: 12px 12px;
+        background-repeat: no-repeat;
+        animation: d4 1s infinite linear alternate;
+        background-color: $color-primary;
+    }
+
+    @keyframes d4 {
+
+        0%,
+        5% {
+            background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%
+        }
+
+        12.5% {
+            background-position: calc(0*100%/3) 0, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%
+        }
+
+        25% {
+            background-position: calc(0*100%/3) 0, calc(1*100%/3) 0, calc(2*100%/3) 50%, calc(3*100%/3) 50%
+        }
+
+        37.5% {
+            background-position: calc(0*100%/3) 100%, calc(1*100%/3) 0, calc(2*100%/3) 0, calc(3*100%/3) 50%
+        }
+
+        50% {
+            background-position: calc(0*100%/3) 100%, calc(1*100%/3) 100%, calc(2*100%/3) 0, calc(3*100%/3) 0
+        }
+
+        62.5% {
+            background-position: calc(0*100%/3) 50%, calc(1*100%/3) 100%, calc(2*100%/3) 100%, calc(3*100%/3) 0
+        }
+
+        75% {
+            background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 100%, calc(3*100%/3) 100%
+        }
+
+        87.5% {
+            background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 100%
+        }
+
+        95%,
+        100% {
+            background-position: calc(0*100%/3) 50%, calc(1*100%/3) 50%, calc(2*100%/3) 50%, calc(3*100%/3) 50%
+        }
+    }
+
 }

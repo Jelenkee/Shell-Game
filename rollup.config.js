@@ -9,10 +9,16 @@ import { join } from "path";
 import { unlink } from "fs/promises";
 import { minify } from "csso";
 import copy from "rollup-plugin-copy";
+import purgecss from "purgecss";
 
-const PROD = process.env.PROD == "true";
+const PROD = process.env.ROLLUP_WATCH !== "true";
 
 const targetFolder = join(".", "public");
+const copyHTML = () => copy({
+    targets: [
+        { src: "src/index.html", dest: targetFolder }
+    ]
+});
 
 export default [
     {
@@ -41,11 +47,7 @@ export default [
             clear({
                 targets: [targetFolder],
             }),
-            copy({
-                targets: [
-                    { src: "src/index.html", dest: targetFolder }
-                ]
-            })
+            copyHTML()
         ]
     }, {
         input: "src/sass/site.scss",
@@ -57,10 +59,20 @@ export default [
                 output: join(targetFolder, "main.css"),
                 exclude: [],
                 include: ["**/*.scss", "**/*.css"],
-                options: {
-                    outputStyle: "compressed"
-                },
-                processor: css => minify(css).css
+                options: PROD ? { outputStyle: "compressed" } : {},
+                processor: async css => {
+                    if (PROD) {
+                        css = minify(css).css;
+                        let purged = await new purgecss().purge({
+                            content: ["src/**/*.html"],
+                            css: [{ raw: css }]
+                        });
+                        if (purged.length) {
+                            css = purged[0].css;
+                        }
+                    }
+                    return css;
+                }
 
             }),
             {
@@ -69,6 +81,7 @@ export default [
                     await unlink(options.file);
                 }
             },
+            copyHTML()
         ]
     }
 ]
