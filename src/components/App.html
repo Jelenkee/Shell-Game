@@ -8,27 +8,27 @@
     function scroll(event) {
         event.deltaY < 0 ? e++ : e--;
     }
-    let settings={
-        cups:5,
-        maxSimultaneousCups:2,
-        balls:1,
-        difficulty:0.3
+    let settings = {
+        cups: 5,
+        maxSimultaneousCups: 2,
+        balls: 1,
+        difficulty: 0.3
     }
     $: settings, stop();
-    let running=false;
-    let stepsLeft=0;
+    let running = false;
+    let stepsLeft = 0;
 
     let gameInterval;
 
     function start(params) {
-        running=true;
-        gameInterval=setInterval(() => {
-            
+        running = true;
+        gameInterval = setInterval(() => {
+
         }, interval);
     }
 
     function stop(params) {
-        running=false;
+        running = false;
         clearInterval(gameInterval);
     }
 </script>
